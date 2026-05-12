@@ -4,23 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MUFI — Admin Panel</title>
-
-<!-- PWA Meta Tags -->
 <meta name="theme-color" content="#B8956A">
-<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="MUFI Admin">
 <link rel="manifest" href="/manifest.json">
-
-<!-- Icons - ROOT FOLDER -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -31,8 +24,6 @@
 }
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh}
 button{font-family:var(--sans);cursor:pointer;border:none}
-
-/* LOGIN */
 .login-screen{position:fixed;inset:0;background:var(--ink);display:flex;align-items:center;justify-content:center;z-index:9999}
 .login-screen.hide{display:none}
 .login-card{background:var(--surface);border-radius:8px;padding:48px 40px;width:360px;text-align:center}
@@ -46,8 +37,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .login-msg{font-size:12px;margin-top:10px;min-height:18px}
 .login-msg.ok{color:var(--green)}
 .login-msg.err{color:var(--red)}
-
-/* LAYOUT */
 .layout{display:none;min-height:100vh}
 .layout.show{display:flex}
 .sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:0;bottom:0;overflow-y:auto;z-index:100}
@@ -71,8 +60,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .content{padding:28px 32px}
 .page{display:none}
 .page.active{display:block}
-
-/* STATS */
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 20px}
 .stat-ico{font-size:24px;margin-bottom:10px}
@@ -82,22 +69,16 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .stat-card.green .stat-num{color:var(--green)}
 .stat-card.red .stat-num{color:var(--red)}
 .stat-card.blue .stat-num{color:var(--blue)}
-
-/* CARD */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:20px}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
 .card-title{font-size:14px;font-weight:600}
 .card-btn{font-size:11px;font-weight:500;color:var(--gold);letter-spacing:1px;text-transform:uppercase;background:none}
 .card-btn:hover{text-decoration:underline}
-
-/* TABLE WRAPPER WITH SCROLL */
 .table-wrapper{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .table-wrapper::-webkit-scrollbar{height:8px}
 .table-wrapper::-webkit-scrollbar-track{background:var(--bg)}
 .table-wrapper::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 .table-wrapper::-webkit-scrollbar-thumb:hover{background:var(--ink3)}
-
-/* TABLE */
 .tbl{width:100%;min-width:700px;border-collapse:collapse}
 .tbl th{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:10px 16px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border)}
 .tbl td{font-size:13px;padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
@@ -117,8 +98,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .btn-edit:hover{background:var(--blue);color:#fff}
 .btn-del{background:rgba(192,57,43,.1);color:var(--red)}
 .btn-del:hover{background:var(--red);color:#fff}
-
-/* FORM */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-full{grid-column:1/-1}
 .form-group{display:flex;flex-direction:column;gap:5px}
@@ -134,8 +113,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .form-msg{font-size:12px;margin-top:8px;min-height:18px}
 .form-msg.ok{color:var(--green)}
 .form-msg.err{color:var(--red)}
-
-/* IMG UPLOAD */
 .img-upload-wrap{border:2px dashed var(--border);border-radius:var(--r);padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-top:6px}
 .img-upload-wrap:hover{border-color:var(--gold);background:rgba(184,149,106,.05)}
 .img-upload-wrap.has-img{border-style:solid;padding:0;cursor:default}
@@ -148,26 +125,18 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .img-remove{margin-top:8px;font-size:11px;color:var(--red);background:none;padding:6px 12px}
 .img-remove:hover{text-decoration:underline}
 #fileInput{display:none}
-
-/* TOOLBAR */
 .toolbar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .toolbar-search{flex:1;min-width:200px;padding:9px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:13px}
 .toolbar-search:focus{outline:none;border-color:var(--gold)}
 .toolbar-filter{padding:9px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:var(--surface)}
-
-/* LOADING */
 .loading{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:9998;display:none;align-items:center;justify-content:center}
 .loading.show{display:flex}
 .loading-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* PWA INSTALL BUTTON */
 .install-btn{position:fixed;bottom:24px;right:24px;background:var(--gold);color:#fff;padding:10px 20px;border-radius:99px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 20px rgba(184,149,106,.4);display:none;align-items:center;gap:6px;z-index:500;animation:slideUp .3s ease;cursor:pointer}
 .install-btn.show{display:flex}
 .install-btn:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-/* RESPONSIVE */
 @media(max-width:900px){
   .sidebar{width:100%;position:relative;border-right:none;border-bottom:1px solid var(--border)}
   .main{margin-left:0}
@@ -185,7 +154,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 </head>
 <body>
 
-<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <div class="login-logo">MUFI<span>.</span></div>
@@ -197,7 +165,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
   </div>
 </div>
 
-<!-- LAYOUT -->
 <div class="layout" id="layout">
   <aside class="sidebar">
     <div class="sb-logo">MUFI<span>.</span> <span class="sb-tag">ADMIN</span></div>
@@ -220,7 +187,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
     </div>
 
     <div class="content">
-      <!-- DASHBOARD -->
       <div class="page active" id="page-dashboard">
         <div class="stat-grid">
           <div class="stat-card gold"><div class="stat-ico">👗</div><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total Produk</div></div>
@@ -228,7 +194,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
           <div class="stat-card red"><div class="stat-ico">⚠️</div><div class="stat-num" id="statHabis">0</div><div class="stat-label">Stok Habis</div></div>
           <div class="stat-card blue"><div class="stat-ico">💰</div><div class="stat-num" id="statNilai">0</div><div class="stat-label">Total Nilai Stok</div></div>
         </div>
-
         <div class="card">
           <div class="card-hdr">
             <div class="card-title">Produk Terbaru</div>
@@ -243,7 +208,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
         </div>
       </div>
 
-      <!-- PRODUK -->
       <div class="page" id="page-produk">
         <div class="toolbar">
           <input type="text" class="toolbar-search" id="prodSearch" placeholder="Cari produk..." oninput="renderProdukTable()">
@@ -255,7 +219,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
           </select>
           <button class="btn-primary" onclick="goPage('tambah',document.querySelector('[data-page=tambah]'))">+ Tambah Produk</button>
         </div>
-
         <div class="card">
           <div class="table-wrapper">
             <table class="tbl">
@@ -266,7 +229,6 @@ button{font-family:var(--sans);cursor:pointer;border:none}
         </div>
       </div>
 
-      <!-- TAMBAH/EDIT -->
       <div class="page" id="page-tambah">
         <div class="card" style="padding:24px">
           <div class="card-title" style="margin-bottom:20px" id="formTitle">Tambah Produk Baru</div>
@@ -319,303 +281,50 @@ button{font-family:var(--sans);cursor:pointer;border:none}
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- LOADING -->
 <div class="loading" id="loading">
   <div class="loading-spin"></div>
 </div>
 
-<!-- PWA INSTALL BUTTON -->
 <button class="install-btn" id="installBtn" onclick="installPWA()">
   <span>📱</span> Install Admin App
 </button>
 
 <script>
-// CONFIG
 var SUPABASE_URL='https://oprxcnywzulxejwsojwb.supabase.co';
 var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wcnhjbnl3enVseGVqd3NvandiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMzI5NzYsImV4cCI6MjA5MzkwODk3Nn0.kUgB2ORODFctLff99cj68sgbMxC4slU6Ctgi236w9AQ';
 var TABLE='produk_mufi';
 var STORAGE_BUCKET='produk_images';
-
-// STATE
 var allProduk=[];var currentUser=null;var currentFile=null;
-
-// SUPABASE HELPERS
-function sbHeaders(){
-  var h={'apikey':SUPABASE_KEY,'Content-Type':'application/json'};
-  if(currentUser&&currentUser.access_token)h['Authorization']='Bearer '+currentUser.access_token;
-  else h['Authorization']='Bearer '+SUPABASE_KEY;
-  return h;
-}
+function sbHeaders(){var h={'apikey':SUPABASE_KEY,'Content-Type':'application/json'};if(currentUser&&currentUser.access_token)h['Authorization']='Bearer '+currentUser.access_token;else h['Authorization']='Bearer '+SUPABASE_KEY;return h}
 function sbFetch(t,q){return fetch(SUPABASE_URL+'/rest/v1/'+t+'?'+(q||''),{headers:sbHeaders()}).then(r=>r.json())}
 function sbInsert(t,d){return fetch(SUPABASE_URL+'/rest/v1/'+t,{method:'POST',headers:Object.assign(sbHeaders(),{'Prefer':'return=representation'}),body:JSON.stringify(d)}).then(r=>r.json())}
 function sbUpdate(t,id,d){return fetch(SUPABASE_URL+'/rest/v1/'+t+'?id=eq.'+id,{method:'PATCH',headers:Object.assign(sbHeaders(),{'Prefer':'return=representation'}),body:JSON.stringify(d)}).then(r=>r.json())}
 function sbDelete(t,id){return fetch(SUPABASE_URL+'/rest/v1/'+t+'?id=eq.'+id,{method:'DELETE',headers:sbHeaders()})}
 function sbAuth(endpoint,body){return fetch(SUPABASE_URL+'/auth/v1/'+endpoint,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json())}
-
-// LOGIN
-function doLogin(){
-  var email=document.getElementById('loginEmail').value.trim();
-  var pass=document.getElementById('loginPass').value;
-  var msgEl=document.getElementById('loginMsg');
-  if(!email||!pass){msgEl.textContent='Email dan password wajib diisi';msgEl.className='login-msg err';return}
-  msgEl.textContent='Login...';msgEl.className='login-msg';
-  sbAuth('token?grant_type=password',{email:email,password:pass})
-    .then(d=>{
-      if(d.error){msgEl.textContent=d.error_description||'Login gagal';msgEl.className='login-msg err'}
-      else{
-        currentUser=d;
-        sessionStorage.setItem('mufi_admin',JSON.stringify(d));
-        document.getElementById('loginScreen').classList.add('hide');
-        document.getElementById('layout').classList.add('show');
-        document.getElementById('adminName').textContent='👤 '+email.split('@')[0];
-        loadAllData();
-      }
-    })
-    .catch(()=>{msgEl.textContent='Koneksi gagal';msgEl.className='login-msg err'});
-}
-function doLogout(){
-  if(!confirm('Logout dari admin?'))return;
-  sessionStorage.removeItem('mufi_admin');
-  location.reload();
-}
-
-// CHECK SESSION
-var saved=sessionStorage.getItem('mufi_admin');
-if(saved){
-  try{
-    currentUser=JSON.parse(saved);
-    document.getElementById('loginScreen').classList.add('hide');
-    document.getElementById('layout').classList.add('show');
-    if(currentUser.user&&currentUser.user.email){
-      document.getElementById('adminName').textContent='👤 '+currentUser.user.email.split('@')[0];
-    }
-    loadAllData();
-  }catch(e){sessionStorage.removeItem('mufi_admin')}
-}
-
-// NAV
-function goPage(page,btn){
-  var titles={dashboard:'Dashboard',produk:'Kelola Produk',tambah:'Tambah / Edit Produk'};
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
-  document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  document.getElementById('pageTitle').textContent=titles[page]||'Admin';
-  if(page==='produk')renderProdukTable();
-  if(page==='tambah')resetForm();
-}
-
-// LOAD DATA
-function loadAllData(){
-  sbFetch(TABLE,'select=*&order=created_at.desc')
-    .then(d=>{allProduk=Array.isArray(d)?d:[];buildDashboard();renderProdukTable()})
-    .catch(()=>{allProduk=[];buildDashboard()});
-}
-
-// DASHBOARD
-function buildDashboard(){
-  var total=allProduk.length;
-  var ada=allProduk.filter(p=>p.stok>0).length;
-  var habis=allProduk.filter(p=>!p.stok||p.stok<=0).length;
-  var nilai=allProduk.reduce((sum,p)=>sum+((p.harga||0)*(p.stok||0)),0);
-  document.getElementById('statTotal').textContent=total;
-  document.getElementById('statAda').textContent=ada;
-  document.getElementById('statHabis').textContent=habis;
-  document.getElementById('statNilai').textContent=formatRp(nilai);
-  var recent=allProduk.slice(0,5);
-  var rhtml=recent.map(p=>{
-    var katCls=(p.kategori||'').toLowerCase();
-    var stokCls=p.stok<=0?'low':(p.stok<=3?'low':'ok');
-    return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display='none'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td></tr>';
-  }).join('');
-  document.getElementById('recentTbl').innerHTML=rhtml||'<tr><td colspan="5" style="text-align:center;color:var(--ink3);padding:32px">Belum ada produk</td></tr>';
-}
-
-// PRODUK TABLE
-function renderProdukTable(){
-  var search=(document.getElementById('prodSearch').value||'').toLowerCase();
-  var filter=document.getElementById('prodFilter').value;
-  var filtered=allProduk.filter(p=>{
-    var catOk=filter==='Semua'||p.kategori===filter;
-    var searchOk=!search||(p.nama||'').toLowerCase().indexOf(search)>=0;
-    return catOk&&searchOk;
-  });
-  var html=filtered.map(p=>{
-    var katCls=(p.kategori||'').toLowerCase();
-    var stokCls=p.stok<=0?'low':(p.stok<=3?'low':'ok');
-    return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display='none'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td><td><div class="tbl-actions"><button class="btn-edit" onclick="editProduk('+p.id+')">✏️</button><button class="btn-del" onclick="hapusProduk('+p.id+',''+esc(p.nama)+'')">🗑</button></div></td></tr>';
-  }).join('');
-  document.getElementById('prodTbl').innerHTML=html||'<tr><td colspan="6" style="text-align:center;color:var(--ink3);padding:32px">Tidak ada produk</td></tr>';
-}
-
-// FORM
-function resetForm(){
-  document.getElementById('fId').value='';
-  document.getElementById('fNama').value='';
-  document.getElementById('fKat').value='';
-  document.getElementById('fHarga').value='';
-  document.getElementById('fStok').value='';
-  document.getElementById('fGambar').value='';
-  document.getElementById('fDesc').value='';
-  document.getElementById('formTitle').textContent='Tambah Produk Baru';
-  document.getElementById('formMsg').textContent='';
-  removeImage();
-}
-function editProduk(id){
-  var p=allProduk.find(x=>x.id===id);
-  if(!p)return;
-  document.getElementById('fId').value=p.id;
-  document.getElementById('fNama').value=p.nama||'';
-  document.getElementById('fKat').value=p.kategori||'';
-  document.getElementById('fHarga').value=p.harga||'';
-  document.getElementById('fStok').value=p.stok||0;
-  document.getElementById('fGambar').value=p.gambar||'';
-  document.getElementById('fDesc').value=p.deskripsi||'';
-  document.getElementById('formTitle').textContent='Edit: '+p.nama;
-  if(p.gambar){
-    document.getElementById('imgPreview').src=p.gambar;
-    document.getElementById('imgPreview').classList.add('show');
-    document.getElementById('uploadWrap').classList.add('has-img');
-    document.getElementById('imgRemove').style.display='';
-  }
-  goPage('tambah',document.querySelector('[data-page=tambah]'));
-}
-
-// IMAGE UPLOAD
-function handleFileSelect(e){
-  var file=e.target.files[0];
-  if(!file)return;
-  if(!file.type.match('image.*')){alert('File harus gambar!');return}
-  if(file.size>2*1024*1024){alert('Ukuran file maksimal 2MB!');return}
-  currentFile=file;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    document.getElementById('imgPreview').src=ev.target.result;
-    document.getElementById('imgPreview').classList.add('show');
-    document.getElementById('uploadWrap').classList.add('has-img');
-    document.getElementById('imgRemove').style.display='';
-  };
-  reader.readAsDataURL(file);
-}
-function removeImage(){
-  currentFile=null;
-  document.getElementById('fileInput').value='';
-  document.getElementById('imgPreview').classList.remove('show');
-  document.getElementById('uploadWrap').classList.remove('has-img');
-  document.getElementById('imgRemove').style.display='none';
-}
-
-// UPLOAD TO SUPABASE STORAGE
-async function uploadImage(){
-  if(!currentFile)return document.getElementById('fGambar').value;
-  showLoading(true);
-  var filename=Date.now()+'_'+currentFile.name.replace(/[^a-zA-Z0-9.]/g,'_');
-  try{
-    var res=await fetch(SUPABASE_URL+'/storage/v1/object/'+STORAGE_BUCKET+'/'+filename,{
-      method:'POST',
-      headers:{
-        'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+(currentUser&&currentUser.access_token?currentUser.access_token:SUPABASE_KEY),
-        'Content-Type':currentFile.type||'image/jpeg'
-      },
-      body:currentFile
-    });
-    if(!res.ok){
-      console.error('Upload failed:',res.status,await res.text());
-      showLoading(false);
-      return null;
-    }
-    var publicURL=SUPABASE_URL+'/storage/v1/object/public/'+STORAGE_BUCKET+'/'+filename;
-    showLoading(false);
-    return publicURL;
-  }catch(err){
-    console.error('Upload error:',err);
-    showLoading(false);
-    return null;
-  }
-}
-
-// SAVE PRODUCT
-async function saveProduk(){
-  var nama=document.getElementById('fNama').value.trim();
-  var kat=document.getElementById('fKat').value;
-  var harga=parseInt(document.getElementById('fHarga').value);
-  var stok=parseInt(document.getElementById('fStok').value);
-  var desc=document.getElementById('fDesc').value.trim();
-  var editId=document.getElementById('fId').value;
-  var msgEl=document.getElementById('formMsg');
-  if(!nama||!kat||!harga){msgEl.textContent='Nama, kategori, dan harga wajib diisi!';msgEl.className='form-msg err';return}
-  msgEl.textContent='Menyimpan...';msgEl.className='form-msg';
-  var gambar=document.getElementById('fGambar').value;
-  if(currentFile){
-    var uploaded=await uploadImage();
-    if(uploaded)gambar=uploaded;
-    else{msgEl.textContent='Gagal upload gambar';msgEl.className='form-msg err';return}
-  }
-  var data={nama:nama,kategori:kat,harga:harga,stok:stok||0,gambar:gambar,deskripsi:desc};
-  if(editId){
-    sbUpdate(TABLE,editId,data)
-      .then(res=>{
-        if(res&&res.length>0){msgEl.textContent='✅ Produk berhasil diupdate!';msgEl.className='form-msg ok';loadAllData()}
-        else{msgEl.textContent='❌ Gagal update';msgEl.className='form-msg err'}
-      })
-      .catch(()=>{msgEl.textContent='❌ Koneksi gagal';msgEl.className='form-msg err'});
-  }else{
-    sbInsert(TABLE,data)
-      .then(res=>{
-        if(res&&res.length>0){msgEl.textContent='✅ Produk berhasil ditambahkan!';msgEl.className='form-msg ok';resetForm();loadAllData()}
-        else{msgEl.textContent='❌ Gagal tambah';msgEl.className='form-msg err'}
-      })
-      .catch(()=>{msgEl.textContent='❌ Koneksi gagal';msgEl.className='form-msg err'});
-  }
-}
-function hapusProduk(id,nama){
-  if(!confirm('Hapus produk "'+nama+'" secara permanen?'))return;
-  sbDelete(TABLE,id).then(()=>{allProduk=allProduk.filter(p=>p.id!==id);buildDashboard();renderProdukTable()}).catch(()=>alert('Gagal menghapus!'));
-}
-
-// HELPERS
+function doLogin(){var email=document.getElementById('loginEmail').value.trim();var pass=document.getElementById('loginPass').value;var msgEl=document.getElementById('loginMsg');if(!email||!pass){msgEl.textContent='Email dan password wajib diisi';msgEl.className='login-msg err';return}msgEl.textContent='Login...';msgEl.className='login-msg';sbAuth('token?grant_type=password',{email:email,password:pass}).then(d=>{if(d.error){msgEl.textContent=d.error_description||'Login gagal';msgEl.className='login-msg err'}else{currentUser=d;sessionStorage.setItem('mufi_admin',JSON.stringify(d));document.getElementById('loginScreen').classList.add('hide');document.getElementById('layout').classList.add('show');document.getElementById('adminName').textContent='👤 '+email.split('@')[0];loadAllData()}}).catch(()=>{msgEl.textContent='Koneksi gagal';msgEl.className='login-msg err'})}
+function doLogout(){if(!confirm('Logout dari admin?'))return;sessionStorage.removeItem('mufi_admin');location.reload()}
+var saved=sessionStorage.getItem('mufi_admin');if(saved){try{currentUser=JSON.parse(saved);document.getElementById('loginScreen').classList.add('hide');document.getElementById('layout').classList.add('show');if(currentUser.user&&currentUser.user.email){document.getElementById('adminName').textContent='👤 '+currentUser.user.email.split('@')[0]}loadAllData()}catch(e){sessionStorage.removeItem('mufi_admin')}}
+function goPage(page,btn){var titles={dashboard:'Dashboard',produk:'Kelola Produk',tambah:'Tambah / Edit Produk'};document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+page).classList.add('active');document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('pageTitle').textContent=titles[page]||'Admin';if(page==='produk')renderProdukTable();if(page==='tambah')resetForm()}
+function loadAllData(){sbFetch(TABLE,'select=*&order=created_at.desc').then(d=>{allProduk=Array.isArray(d)?d:[];buildDashboard();renderProdukTable()}).catch(()=>{allProduk=[];buildDashboard()})}
+function buildDashboard(){var total=allProduk.length;var ada=allProduk.filter(p=>p.stok>0).length;var habis=allProduk.filter(p=>!p.stok||p.stok<=0).length;var nilai=allProduk.reduce((sum,p)=>sum+((p.harga||0)*(p.stok||0)),0);document.getElementById('statTotal').textContent=total;document.getElementById('statAda').textContent=ada;document.getElementById('statHabis').textContent=habis;document.getElementById('statNilai').textContent=formatRp(nilai);var recent=allProduk.slice(0,5);var rhtml=recent.map(p=>{var katCls=(p.kategori||'').toLowerCase();var stokCls=p.stok<=0?'low':(p.stok<=3?'low':'ok');return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display=\'none\'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td></tr>'}).join('');document.getElementById('recentTbl').innerHTML=rhtml||'<tr><td colspan="5" style="text-align:center;color:var(--ink3);padding:32px">Belum ada produk</td></tr>'}
+function renderProdukTable(){var search=(document.getElementById('prodSearch').value||'').toLowerCase();var filter=document.getElementById('prodFilter').value;var filtered=allProduk.filter(p=>{var catOk=filter==='Semua'||p.kategori===filter;var searchOk=!search||(p.nama||'').toLowerCase().indexOf(search)>=0;return catOk&&searchOk});var html=filtered.map(p=>{var katCls=(p.kategori||'').toLowerCase();var stokCls=p.stok<=0?'low':(p.stok<=3?'low':'ok');return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display=\'none\'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td><td><div class="tbl-actions"><button class="btn-edit" onclick="editProduk('+p.id+')">✏️</button><button class="btn-del" onclick="hapusProduk('+p.id+',\''+esc(p.nama)+'\')">🗑</button></div></td></tr>'}).join('');document.getElementById('prodTbl').innerHTML=html||'<tr><td colspan="6" style="text-align:center;color:var(--ink3);padding:32px">Tidak ada produk</td></tr>'}
+function resetForm(){document.getElementById('fId').value='';document.getElementById('fNama').value='';document.getElementById('fKat').value='';document.getElementById('fHarga').value='';document.getElementById('fStok').value='';document.getElementById('fGambar').value='';document.getElementById('fDesc').value='';document.getElementById('formTitle').textContent='Tambah Produk Baru';document.getElementById('formMsg').textContent='';removeImage()}
+function editProduk(id){var p=allProduk.find(x=>x.id===id);if(!p)return;document.getElementById('fId').value=p.id;document.getElementById('fNama').value=p.nama||'';document.getElementById('fKat').value=p.kategori||'';document.getElementById('fHarga').value=p.harga||'';document.getElementById('fStok').value=p.stok||0;document.getElementById('fGambar').value=p.gambar||'';document.getElementById('fDesc').value=p.deskripsi||'';document.getElementById('formTitle').textContent='Edit: '+p.nama;if(p.gambar){document.getElementById('imgPreview').src=p.gambar;document.getElementById('imgPreview').classList.add('show');document.getElementById('uploadWrap').classList.add('has-img');document.getElementById('imgRemove').style.display=''}goPage('tambah',document.querySelector('[data-page=tambah]'))}
+function handleFileSelect(e){var file=e.target.files[0];if(!file)return;if(!file.type.match('image.*')){alert('File harus gambar!');return}if(file.size>2*1024*1024){alert('Ukuran file maksimal 2MB!');return}currentFile=file;var reader=new FileReader();reader.onload=function(ev){document.getElementById('imgPreview').src=ev.target.result;document.getElementById('imgPreview').classList.add('show');document.getElementById('uploadWrap').classList.add('has-img');document.getElementById('imgRemove').style.display=''};reader.readAsDataURL(file)}
+function removeImage(){currentFile=null;document.getElementById('fileInput').value='';document.getElementById('imgPreview').classList.remove('show');document.getElementById('uploadWrap').classList.remove('has-img');document.getElementById('imgRemove').style.display='none'}
+async function uploadImage(){if(!currentFile)return document.getElementById('fGambar').value;showLoading(true);var filename=Date.now()+'_'+currentFile.name.replace(/[^a-zA-Z0-9.]/g,'_');try{var res=await fetch(SUPABASE_URL+'/storage/v1/object/'+STORAGE_BUCKET+'/'+filename,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+(currentUser&&currentUser.access_token?currentUser.access_token:SUPABASE_KEY),'Content-Type':currentFile.type||'image/jpeg'},body:currentFile});if(!res.ok){console.error('Upload failed:',res.status,await res.text());showLoading(false);return null}var publicURL=SUPABASE_URL+'/storage/v1/object/public/'+STORAGE_BUCKET+'/'+filename;showLoading(false);return publicURL}catch(err){console.error('Upload error:',err);showLoading(false);return null}}
+async function saveProduk(){var nama=document.getElementById('fNama').value.trim();var kat=document.getElementById('fKat').value;var harga=parseInt(document.getElementById('fHarga').value);var stok=parseInt(document.getElementById('fStok').value);var desc=document.getElementById('fDesc').value.trim();var editId=document.getElementById('fId').value;var msgEl=document.getElementById('formMsg');if(!nama||!kat||!harga){msgEl.textContent='Nama, kategori, dan harga wajib diisi!';msgEl.className='form-msg err';return}msgEl.textContent='Menyimpan...';msgEl.className='form-msg';var gambar=document.getElementById('fGambar').value;if(currentFile){var uploaded=await uploadImage();if(uploaded)gambar=uploaded;else{msgEl.textContent='Gagal upload gambar';msgEl.className='form-msg err';return}}var data={nama:nama,kategori:kat,harga:harga,stok:stok||0,gambar:gambar,deskripsi:desc};if(editId){sbUpdate(TABLE,editId,data).then(res=>{if(res&&res.length>0){msgEl.textContent='✅ Produk berhasil diupdate!';msgEl.className='form-msg ok';loadAllData()}else{msgEl.textContent='❌ Gagal update';msgEl.className='form-msg err'}}).catch(()=>{msgEl.textContent='❌ Koneksi gagal';msgEl.className='form-msg err'})}else{sbInsert(TABLE,data).then(res=>{if(res&&res.length>0){msgEl.textContent='✅ Produk berhasil ditambahkan!';msgEl.className='form-msg ok';resetForm();loadAllData()}else{msgEl.textContent='❌ Gagal tambah';msgEl.className='form-msg err'}}).catch(()=>{msgEl.textContent='❌ Koneksi gagal';msgEl.className='form-msg err'})}}
+function hapusProduk(id,nama){if(!confirm('Hapus produk "'+nama+'" secara permanen?'))return;sbDelete(TABLE,id).then(()=>{allProduk=allProduk.filter(p=>p.id!==id);buildDashboard();renderProdukTable()}).catch(()=>alert('Gagal menghapus!'))}
 function formatRp(n){return n?'Rp '+Number(n).toLocaleString('id-ID'):'Rp 0'}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function showLoading(show){document.getElementById('loading').classList.toggle('show',show)}
-
-// PWA SERVICE WORKER
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg=>console.log('[PWA] SW registered'))
-      .catch(err=>console.log('[PWA] SW failed:',err));
-  });
-}
-
-// PWA INSTALL PROMPT
-var deferredPrompt;
-window.addEventListener('beforeinstallprompt',(e)=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  document.getElementById('installBtn').style.display='flex';
-  setTimeout(()=>document.getElementById('installBtn').classList.add('show'),500);
-});
-
-function installPWA(){
-  if(!deferredPrompt)return;
-  document.getElementById('installBtn').classList.remove('show');
-  setTimeout(()=>document.getElementById('installBtn').style.display='none',300);
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then((choice)=>{
-    if(choice.outcome==='accepted')console.log('[PWA] Installed');
-    deferredPrompt=null;
-  });
-}
-
-window.addEventListener('appinstalled',()=>{
-  document.getElementById('installBtn').style.display='none';
-});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').then(reg=>console.log('[PWA] SW registered')).catch(err=>console.log('[PWA] SW failed:',err))})}
+var deferredPrompt;window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').style.display='flex';setTimeout(()=>document.getElementById('installBtn').classList.add('show'),500)});function installPWA(){if(!deferredPrompt)return;document.getElementById('installBtn').classList.remove('show');setTimeout(()=>document.getElementById('installBtn').style.display='none',300);deferredPrompt.prompt();deferredPrompt.userChoice.then((choice)=>{if(choice.outcome==='accepted')console.log('[PWA] Installed');deferredPrompt=null})}
+window.addEventListener('appinstalled',()=>{document.getElementById('installBtn').style.display='none'});
 </script>
 </body>
 </html>
