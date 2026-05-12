@@ -150,7 +150,18 @@ button{font-family:var(--sans);cursor:pointer;border:none}
   .sb-item.active::before{display:none}
   .sb-div{display:none}
 }
+
+.install-btn{position:fixed;bottom:24px;right:24px;background:var(--gold);color:#fff;padding:10px 20px;border-radius:99px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 20px rgba(184,149,106,.4);display:none;align-items:center;gap:6px;z-index:500;animation:slideUp .3s ease}
+.install-btn.show{display:flex}
+.install-btn:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 </style>
+<meta name="theme-color" content="#B8956A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MUFI Admin">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192x192.png">
 </head>
 <body>
 
@@ -543,6 +554,46 @@ function hapusProduk(id,nama){
 function formatRp(n){return n?'Rp '+Number(n).toLocaleString('id-ID'):'Rp 0'}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function showLoading(show){document.getElementById('loading').classList.toggle('show',show)}
+</script>
+
+<!-- PWA INSTALL BUTTON -->
+<button class="install-btn" id="installBtn" onclick="installPWA()" style="display:none">
+  <span>📱</span> Install Admin App
+</button>
+
+<script>
+// Service Worker
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg=>console.log('[PWA] SW registered'))
+      .catch(err=>console.log('[PWA] SW failed:',err));
+  });
+}
+
+// Install Prompt
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt',(e)=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  document.getElementById('installBtn').style.display='flex';
+  setTimeout(()=>document.getElementById('installBtn').classList.add('show'),500);
+});
+
+function installPWA(){
+  if(!deferredPrompt)return;
+  document.getElementById('installBtn').classList.remove('show');
+  setTimeout(()=>document.getElementById('installBtn').style.display='none',300);
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choice)=>{
+    if(choice.outcome==='accepted')console.log('[PWA] Installed');
+    deferredPrompt=null;
+  });
+}
+
+window.addEventListener('appinstalled',()=>{
+  document.getElementById('installBtn').style.display='none';
+});
 </script>
 </body>
 </html>
