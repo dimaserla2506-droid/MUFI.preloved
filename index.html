@@ -415,14 +415,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.5);padding:48px clamp(16px,
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<script src="config.js"></script>
 <script>
 // ══════════════════════════════════════
 // SUPABASE CONFIG — Ganti dengan milik kamu
 // ══════════════════════════════════════
-var SUPABASE_URL = 'https://GANTI_DENGAN_URL_SUPABASE_KAMU.supabase.co';
-var SUPABASE_KEY = 'GANTI_DENGAN_ANON_KEY_KAMU';
-var WA_NUMBER = '6281374532684';
-var ADMIN_PASS = 'MuFi@2026!';
+var SUPABASE_URL = CONFIG.SUPABASE_URL;
+var SUPABASE_KEY = CONFIG.SUPABASE_KEY;
+var WA_NUMBER = CONFIG.WA_NUMBER;
+var ADMIN_PASS = CONFIG.ADMIN_PASS;
 
 // Supabase REST helper
 function sbFetch(table, query) {
@@ -565,7 +566,7 @@ window.addEventListener('resize', function() { if (window.innerWidth > 768) clos
 // ══════════════════════════════════════
 function loadProducts() {
   showSkeleton();
-  sbFetch('produk_mufi', 'select=*&order=created_at.desc')
+  sbFetch(CONFIG.TABLE_PRODUK, 'select=*&order=created_at.desc')
     .then(function(data) {
       if (Array.isArray(data)) {
         allProducts = data;
