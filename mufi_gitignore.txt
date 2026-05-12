@@ -1,0 +1,6 @@
+# Config file - JANGAN upload ke GitHub!
+config.js
+
+# OS files
+.DS_Store
+Thumbs.db
