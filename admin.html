@@ -4,10 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MUFI — Admin Panel</title>
+
+<!-- PWA Meta Tags -->
+<meta name="theme-color" content="#B8956A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MUFI Admin">
+<link rel="manifest" href="/manifest.json">
+
+<!-- Icons - ROOT FOLDER -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-128x128.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -77,8 +90,15 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .card-btn{font-size:11px;font-weight:500;color:var(--gold);letter-spacing:1px;text-transform:uppercase;background:none}
 .card-btn:hover{text-decoration:underline}
 
+/* TABLE WRAPPER WITH SCROLL */
+.table-wrapper{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.table-wrapper::-webkit-scrollbar{height:8px}
+.table-wrapper::-webkit-scrollbar-track{background:var(--bg)}
+.table-wrapper::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.table-wrapper::-webkit-scrollbar-thumb:hover{background:var(--ink3)}
+
 /* TABLE */
-.tbl{width:100%;border-collapse:collapse}
+.tbl{width:100%;min-width:700px;border-collapse:collapse}
 .tbl th{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:10px 16px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border)}
 .tbl td{font-size:13px;padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
 .tbl tr:hover td{background:rgba(0,0,0,.01)}
@@ -141,6 +161,12 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .loading-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* PWA INSTALL BUTTON */
+.install-btn{position:fixed;bottom:24px;right:24px;background:var(--gold);color:#fff;padding:10px 20px;border-radius:99px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 20px rgba(184,149,106,.4);display:none;align-items:center;gap:6px;z-index:500;animation:slideUp .3s ease;cursor:pointer}
+.install-btn.show{display:flex}
+.install-btn:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
 /* RESPONSIVE */
 @media(max-width:900px){
   .sidebar{width:100%;position:relative;border-right:none;border-bottom:1px solid var(--border)}
@@ -152,19 +178,10 @@ button{font-family:var(--sans);cursor:pointer;border:none}
   .sb-item{padding:8px 14px;white-space:nowrap;border-radius:var(--r)}
   .sb-item.active::before{display:none}
   .sb-div{display:none}
+  .content{padding:16px}
+  .topbar{padding:12px 16px}
 }
-
-.install-btn{position:fixed;bottom:24px;right:24px;background:var(--gold);color:#fff;padding:10px 20px;border-radius:99px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 20px rgba(184,149,106,.4);display:none;align-items:center;gap:6px;z-index:500;animation:slideUp .3s ease}
-.install-btn.show{display:flex}
-.install-btn:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 </style>
-<meta name="theme-color" content="#B8956A">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MUFI Admin">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="/icons/icon-192x192.png">
 </head>
 <body>
 
@@ -217,10 +234,12 @@ button{font-family:var(--sans);cursor:pointer;border:none}
             <div class="card-title">Produk Terbaru</div>
             <button class="card-btn" onclick="goPage('produk',document.querySelector('[data-page=produk]'))">Lihat Semua →</button>
           </div>
-          <table class="tbl">
-            <thead><tr><th>Gambar</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Stok</th></tr></thead>
-            <tbody id="recentTbl"></tbody>
-          </table>
+          <div class="table-wrapper">
+            <table class="tbl">
+              <thead><tr><th>Gambar</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Stok</th></tr></thead>
+              <tbody id="recentTbl"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -238,10 +257,12 @@ button{font-family:var(--sans);cursor:pointer;border:none}
         </div>
 
         <div class="card">
-          <table class="tbl">
-            <thead><tr><th>Gambar</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead>
-            <tbody id="prodTbl"></tbody>
-          </table>
+          <div class="table-wrapper">
+            <table class="tbl">
+              <thead><tr><th>Gambar</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead>
+              <tbody id="prodTbl"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -307,6 +328,11 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 <div class="loading" id="loading">
   <div class="loading-spin"></div>
 </div>
+
+<!-- PWA INSTALL BUTTON -->
+<button class="install-btn" id="installBtn" onclick="installPWA()">
+  <span>📱</span> Install Admin App
+</button>
 
 <script>
 // CONFIG
@@ -405,7 +431,7 @@ function buildDashboard(){
   var rhtml=recent.map(p=>{
     var katCls=(p.kategori||'').toLowerCase();
     var stokCls=p.stok<=0?'low':(p.stok<=3?'low':'ok');
-    return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display=\'none\'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td></tr>';
+    return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display='none'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td></tr>';
   }).join('');
   document.getElementById('recentTbl').innerHTML=rhtml||'<tr><td colspan="5" style="text-align:center;color:var(--ink3);padding:32px">Belum ada produk</td></tr>';
 }
@@ -422,7 +448,7 @@ function renderProdukTable(){
   var html=filtered.map(p=>{
     var katCls=(p.kategori||'').toLowerCase();
     var stokCls=p.stok<=0?'low':(p.stok<=3?'low':'ok');
-    return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display=\'none\'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td><td><div class="tbl-actions"><button class="btn-edit" onclick="editProduk('+p.id+')">✏️</button><button class="btn-del" onclick="hapusProduk('+p.id+',\''+esc(p.nama)+'\')">🗑</button></div></td></tr>';
+    return '<tr><td><img class="tbl-img" src="'+(p.gambar||'')+'" onerror="this.style.display='none'"></td><td class="tbl-name">'+esc(p.nama)+'</td><td><span class="tbl-kat '+katCls+'">'+esc(p.kategori)+'</span></td><td>'+formatRp(p.harga)+'</td><td class="tbl-stok '+stokCls+'">'+(p.stok||0)+'</td><td><div class="tbl-actions"><button class="btn-edit" onclick="editProduk('+p.id+')">✏️</button><button class="btn-del" onclick="hapusProduk('+p.id+',''+esc(p.nama)+'')">🗑</button></div></td></tr>';
   }).join('');
   document.getElementById('prodTbl').innerHTML=html||'<tr><td colspan="6" style="text-align:center;color:var(--ink3);padding:32px">Tidak ada produk</td></tr>';
 }
@@ -557,15 +583,8 @@ function hapusProduk(id,nama){
 function formatRp(n){return n?'Rp '+Number(n).toLocaleString('id-ID'):'Rp 0'}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function showLoading(show){document.getElementById('loading').classList.toggle('show',show)}
-</script>
 
-<!-- PWA INSTALL BUTTON -->
-<button class="install-btn" id="installBtn" onclick="installPWA()" style="display:none">
-  <span>📱</span> Install Admin App
-</button>
-
-<script>
-// Service Worker
+// PWA SERVICE WORKER
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.register('/sw.js')
@@ -574,7 +593,7 @@ if('serviceWorker' in navigator){
   });
 }
 
-// Install Prompt
+// PWA INSTALL PROMPT
 var deferredPrompt;
 window.addEventListener('beforeinstallprompt',(e)=>{
   e.preventDefault();
