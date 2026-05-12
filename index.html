@@ -199,7 +199,19 @@ footer{background:var(--ink);color:rgba(255,255,255,.5);padding:48px clamp(16px,
 @media(max-width:400px){
   .product-grid{grid-template-columns:1fr}
 }
+
+/* PWA INSTALL BUTTON */
+.install-btn{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;padding:12px 24px;border-radius:99px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 20px rgba(184,149,106,.4);display:none;align-items:center;gap:8px;z-index:500;animation:slideUp .3s ease;cursor:pointer}
+.install-btn.show{display:flex}
+.install-btn:hover{background:var(--ink);transform:translateX(-50%) translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+@keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 </style>
+<meta name="theme-color" content="#B8956A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MUFI">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192x192.png">
 </head>
 <body>
 
@@ -486,6 +498,54 @@ function initRealtime(){
   };
 }
 setTimeout(initRealtime,2000);
+</script>
+
+<!-- PWA INSTALL BUTTON -->
+<button class="install-btn" id="installBtn" onclick="installPWA()">
+  <span>📱</span> Install Aplikasi MUFI
+</button>
+
+<!-- PWA SERVICE WORKER & INSTALL -->
+<script>
+// Service Worker Registration
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg=>console.log('[PWA] Service Worker registered'))
+      .catch(err=>console.log('[PWA] Service Worker registration failed:',err));
+  });
+}
+
+// PWA Install Prompt
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt',(e)=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  document.getElementById('installBtn').classList.add('show');
+});
+
+function installPWA(){
+  if(!deferredPrompt)return;
+  document.getElementById('installBtn').classList.remove('show');
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choice)=>{
+    if(choice.outcome==='accepted'){
+      console.log('[PWA] User accepted install');
+    }
+    deferredPrompt=null;
+  });
+}
+
+// Hide install button if already installed
+window.addEventListener('appinstalled',()=>{
+  document.getElementById('installBtn').classList.remove('show');
+  console.log('[PWA] App installed');
+});
+
+// Check if running as installed PWA
+if(window.matchMedia('(display-mode: standalone)').matches){
+  console.log('[PWA] Running as installed app');
+}
 </script>
 </body>
 </html>
